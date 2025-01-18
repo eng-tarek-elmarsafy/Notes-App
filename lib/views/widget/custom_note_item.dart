@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/edit_note_view.dart';
 
 class NoteItem extends StatelessWidget {
-  final Color color;
-  const NoteItem({super.key, required this.color});
+  final NoteModel note;
+  const NoteItem({super.key, required this.note});
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +23,14 @@ class NoteItem extends StatelessWidget {
           padding: EdgeInsets.only(top: 24, bottom: 24, left: 16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: color,
+            color: Color(note.color),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               ListTile(
                 title: Text(
-                  'Flutter Iips',
+                  note.title,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 28,
@@ -38,7 +39,7 @@ class NoteItem extends StatelessWidget {
                 subtitle: Padding(
                   padding: const EdgeInsets.only(top: 16),
                   child: Text(
-                    'Top companies choose Udemy Business .',
+                    note.subTitle,
                     style: TextStyle(
                       color: Colors.black.withValues(alpha: .4),
                       fontSize: 20,
@@ -46,7 +47,9 @@ class NoteItem extends StatelessWidget {
                   ),
                 ),
                 trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    note.delete();
+                  },
                   icon: Icon(
                     Icons.delete,
                     color: Colors.black,
@@ -57,7 +60,7 @@ class NoteItem extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 24, top: 16),
                 child: Text(
-                  'Dio, 3:20',
+                  note.data,
                   style: TextStyle(
                     color: Colors.black.withValues(alpha: 0.4),
                     fontSize: 20,
